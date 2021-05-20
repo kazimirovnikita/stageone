@@ -13,10 +13,8 @@ import model.JsonSerializer;
 import model.Ship;
 
 public class Service1 {
-    //Генератор случайных чисел
     private static final Random rnd = new Random();
 
-    //Метод генерации расписания прибытия кораблей
     public static String GenerateShipsSchedule(int shipsCount) throws IOException {
 
         ArrayList<Ship> schedule = new ArrayList<Ship>();
@@ -40,8 +38,6 @@ public class Service1 {
             schedule.add(ship);
         }
 
-
-        //сортируем расписание по времени прибытия кораблей в порт
         Collections.sort(schedule, new Comparator<Ship>() {
             public int compare(Ship left, Ship right) {
                 return left.getArrivalTime().after(right.getArrivalTime()) ? 1 :

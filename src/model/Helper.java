@@ -8,14 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Helper {
 
-    //Получение разницы между двумя датами в минутах
     public static long getDurationInMinutes(Date earlier, Date later) {
         long durationInMillisec = later.getTime() - earlier.getTime();
         long durationInMinutes = TimeUnit.MILLISECONDS.toMinutes(durationInMillisec);
         return durationInMinutes;
     }
 
-    //Перевод длительности в минутах в формат ДД:ЧЧ:ММ
     public static String minutesToString(long durationInMinutes) {
         int minutes = (int)(durationInMinutes % 60);
         durationInMinutes /= 60;

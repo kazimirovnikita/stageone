@@ -3,18 +3,14 @@ package model;
 import java.util.Date;
 
 public class Crane implements Runnable {
-    //Производительность крана в минуту
-    private int productivity;
-    //Тип разгружаемого груза
-    private CargoType cargoType;
-    //Порт
-    private Port port;
-    //Разгружаемый корабль
-    private Ship unloadingShip;
 
+    private int productivity;
+    private CargoType cargoType;
+    private Port port;
+    private Ship unloadingShip;
     private Date currentTime;
 
-    //Конструктор
+
     public Crane(int productivity, CargoType cargoType, Port port) {
         this.productivity = productivity;
         this.cargoType = cargoType;

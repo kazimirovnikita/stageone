@@ -10,18 +10,13 @@ public class Port {
     private static final int liquidCargoCraneProductivity = 11;
     private static final int containerCargoCraneProductivity = 10;
 
-    //Очередь кораблей
     private ArrayList<Ship> shipsQueue;
-    //Список всех кранов в порту
     private final ArrayList<Crane> cranes;
-    //Текущее время
     private Date currentTime;
-    //Количество кранов отработавших минуту
     private int cranesComplete = 0;
 
     private List<Thread> threads;
 
-    //Метод оповещения кранами о завершении минуты
     public synchronized void CompleteMinute() {
         cranesComplete++;
 
@@ -60,7 +55,6 @@ public class Port {
         return null;
     }
 
-    //Добавление минуты к текущему времени
     private void addMinute() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentTime);
@@ -68,7 +62,6 @@ public class Port {
         currentTime = calendar.getTime();
     }
 
-    //Конструктор
     public Port() {
         cranes = new ArrayList<Crane>();
         cranes.add(new Crane(looseCargoCraneProductivity, CargoType.сыпучий, this));
@@ -76,7 +69,6 @@ public class Port {
         cranes.add(new Crane(containerCargoCraneProductivity, CargoType.контейнер, this));
     }
 
-    //Дабавление крана в список
     public void addCrane(CargoType type) {
         switch(type) {
             case сыпучий:
@@ -91,7 +83,6 @@ public class Port {
         }
     }
 
-    //Количество кранов по типу разгружаемого груза
     public int cranesOfType(CargoType type) {
         int count = 0;
         for(int i=0; i < cranes.size(); i++) {
@@ -101,7 +92,6 @@ public class Port {
         return count;
     }
 
-    //Геттер текущего времени
     public Date getCurrentTime() {
         return currentTime;
     }
