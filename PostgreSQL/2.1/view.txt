@@ -1,0 +1,34 @@
+CREATE VIEW view_first AS
+	SELECT Name, Surname FROM CarOwners 
+			
+SELECT * FROM view_first
+
+----Находим какие услуги прдоставлялись на данный момент и их количество, сортируем в порядке убывания----
+CREATE VIEW services_statistic AS
+	SELECT Count(*) as count, Service, Price From Services
+		INNER JOIN OrdersServices ON OrdersServices.IdServices = Services.IdService
+			GROUP BY Service, Price
+				ORDER BY count DESC
+
+CREATE VIEW services_statistic2 AS
+	SELECT Service, Price From Services
+		INNER JOIN OrdersServices ON OrdersServices.IdServices = Services.IdService
+
+				
+SELECT * FROM services_statistic	
+
+----Находим сотрудника/сотрудников с наибольшим количеством заказов----
+CREATE VIEW mechanics_statistic AS
+WITH count_ord AS (SELECT COUNT(*), Mechanics.Surname FROM Mechanics
+				   INNER JOIN Orders ON Orders.IdMechanic=Mechanics.IdMechanic
+				  GROUP BY Mechanics.Surname)
+
+SELECT Count(*) AS NumberOfOrders, Mechanics.Name, Surname, Post
+	FROM Mechanics INNER JOIN Orders ON Orders.IdMechanic=Mechanics.IdMechanic
+GROUP BY Mechanics.Name, Mechanics.Surname, Mechanics.Post
+HAVING Count(Orders.IdOrder)=(SELECT MAX(count) FROM count_ord)
+
+SELECT * FROM mechanics_statistic
+
+
+

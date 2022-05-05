@@ -1,0 +1,53 @@
+CREATE USER test WITH PASSWORD '1111'
+
+GRANT CONNECT ON DATABASE "Lab" TO test
+
+GRANT SELECT, INSERT, UPDATE
+	ON TABLE "mechanics" TO test
+	
+GRANT SELECT (IdService, Service) 
+	ON TABLE "services" TO test
+	
+GRANT UPDATE (Price) ON TABLE "services" TO test	
+
+GRANT USAGE, SELECT ON SEQUENCE mechanics_idmechanic_seq TO test
+
+GRANT SELECT
+	ON TABLE "orders" TO test
+	
+----------------------------------------------------
+
+CREATE ROLE view_test
+
+GRANT SELECT ON view_first TO test
+
+GRANT SELECT ON mechanics_statistic TO test
+
+GRANT SELECT ON services_statistic2  TO test
+
+GRANT UPDATE On services_statistic2  TO test
+
+GRANT UPDATE (Surname) On "view_first" TO view_test
+
+GRANT view_test TO test
+
+----------------------------------------------------
+
+REVOKE ALL ON DATABASE "Lab" FROM test
+
+REVOKE ALL ON TABLE "orders", "services", "mechanics" FROM test
+
+REVOKE ALL ON TABLE "services" FROM test
+
+REVOKE ALL ON "view_first" FROM test
+
+REVOKE ALL ON "services_statistic" FROM test
+
+REVOKE ALL ON "services_statistic" FROM view_test
+
+REVOKE ALL ON "view_first" FROM view_test
+
+----------------------------------------------------
+DROP USER test
+
+DROP ROLE view_test

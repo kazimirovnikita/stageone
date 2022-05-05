@@ -1,0 +1,102 @@
+----Заполнение RetailCenter
+CREATE OR REPLACE PROCEDURE generate_ret_center() as
+	$$
+	from faker import Faker
+	fake = Faker()
+	for i in range(1000000):
+		type = fake.name()
+		address = fake.address()
+		plpy.execute('insert into RetailCenter (Type, Address) values (\'{}\', \'{}\')'.format(type, address))
+	$$ language plpython3u;
+
+call generate_ret_center(); -- successfully in 4 min 13 secs ///  6 min 3 secs /// 4 min 34 secs /// 4 min 39 secs. /// 6 min 19 secs.
+
+
+----Заполнение TransportationEvent
+CREATE OR REPLACE PROCEDURE generate_tr_event() as
+	$$
+	from faker import Faker
+	fake = Faker()
+	for i in range(1000000):
+		type = fake.name()
+		deliv = fake.address()
+		plpy.execute('insert into TransportationEvent (Type, DelivaryRout) values (\'{}\', \'{}\')'.format(type, deliv))
+	$$ language plpython3u;
+	
+call generate_tr_event(); -- successfully in 5 min 10 secs /// 5 min 36 secs /// 4 min 34 secs /// 4 min 29 secs /// 5 min 15 secs
+
+
+----Заполнение ShippedItem
+CREATE OR REPLACE PROCEDURE generate_shipped_item() as
+	$$
+	from faker import Faker
+	import random
+	fake = Faker()
+	for i in range(10000000):
+		idCenter = random.randint(1, 1000000)
+		weight = random.randint(1, 10000)
+		dimen = random.randint(1, 10000)
+		insu = random.randint(1, 10000)
+		dest = fake.address()
+		dat = fake.date_between(start_date='-1y', end_date='today')
+		plpy.execute('insert into ShippedItem (RetailCenterId, Weight, Dimension, InsuranceAmt, Destination, FinalDelivaryDate) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(idCenter, 
+			weight, dimen, insu, dest, dat))
+	$$ language plpython3u;
+
+call generate_shipped_item(); --successfully in 48 min 20 secs. /// 46 min 54 secs /// 52 min 41 secs
+
+----Заполнение ItemTransportation
+CREATE OR REPLACE PROCEDURE generate_item_tran() as
+	$$
+	import random
+	for i in range(1000000):
+		a = random.randint(1, 100000)
+		b = random.randint(1, 10000000)
+		plpy.execute('insert into ItemTransportation (TransportationEventSeqNumber, ShippedItemItemNum) values (\'{}\', \'{}\')'.format(a, b))
+	$$ language plpython3u;
+	
+call generate_item_tran(); -- successfully in 4 min 13 secs /// 3 min 47 secs /// 4 min 45 secs
+
+
+----Запросы к одной таблице
+EXPLAIN (ANALYZE,VERBOSE,BUFFERS) SELECT * FROM ShippedItem WHERE Weight >= 9800 AND InsuranceAmt = 5473
+
+----BTREE
+CREATE INDEX IF NOT EXISTS index_btree ON ShippedItem USING BTREE (Weight);
+EXPLAIN (ANALYZE,VERBOSE,BUFFERS) SELECT * FROM ShippedItem WHERE Weight >= 9800 AND InsuranceAmt = 5473
+
+SELECT pg_size_pretty(pg_total_relation_size('index_btree'))
+DROP INDEX index_btree
+
+----BRIN
+CREATE INDEX IF NOT EXISTS index_brin ON ShippedItem USING BRIN (InsuranceAmt );
+EXPLAIN (ANALYZE,VERBOSE,BUFFERS) SELECT * FROM ShippedItem WHERE Weight >= 9800 AND InsuranceAmt = 5473
+
+SELECT pg_size_pretty(pg_total_relation_size('inex_brin'))
+DROP INDEX index_brin
+
+
+
+-----Запрос к нескольким таблицам
+EXPLAIN (ANALYZE,VERBOSE,BUFFERS) SELECT * FROM ShippedItem 
+	JOIN ItemTransportation ON ShippedItem.ItemNum = ItemTransportation.ShippedItemItemNum AND ShippedItemItemNum > 9000
+
+----BTREE
+CREATE INDEX IF NOT EXISTS index_btree ON ItemTransportation USING BTREE (ShippedItemItemNum);
+EXPLAIN (ANALYZE,VERBOSE,BUFFERS) SELECT * FROM ShippedItem 
+	JOIN ItemTransportation ON ShippedItem.ItemNum = ItemTransportation.ShippedItemItemNum AND ShippedItemItemNum > 9000
+DROP INDEX index_btree
+
+----BRIN
+CREATE INDEX IF NOT EXISTS  index_brin ON ItemTransportation USING BRIN (ShippedItemItemNum);
+EXPLAIN (ANALYZE,VERBOSE,BUFFERS) SELECT * FROM ShippedItem 
+	JOIN ItemTransportation ON ShippedItem.ItemNum = ItemTransportation.ShippedItemItemNum AND ShippedItemItemNum > 9000
+DROP INDEX index_brin
+
+
+SHOW shared_buffers;
+	
+SELECT Min(ItemNum) FROM ShippedItem
+
+CREATE language plpython3u
+Select version()

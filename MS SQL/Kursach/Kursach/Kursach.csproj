@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{52C6A735-4C3C-418E-8F77-620B23DB6865}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Kursach</RootNamespace>
+    <AssemblyName>Kursach</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddDish.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDish.Designer.cs">
+      <DependentUpon>AddDish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEmployee.Designer.cs">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddIngredientOfDish.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddIngredientOfDish.Designer.cs">
+      <DependentUpon>AddIngredientOfDish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddNewIngr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewIngr.Designer.cs">
+      <DependentUpon>AddNewIngr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOrder.Designer.cs">
+      <DependentUpon>AddOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckReviews.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckReviews.Designer.cs">
+      <DependentUpon>CheckReviews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteDish.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteDish.Designer.cs">
+      <DependentUpon>DeleteDish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteEmployee.Designer.cs">
+      <DependentUpon>DeleteEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteIng.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteIng.Designer.cs">
+      <DependentUpon>DeleteIng.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Information.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Information.Designer.cs">
+      <DependentUpon>Information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFormN.Designer.cs">
+      <DependentUpon>MainFormN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuPurchaser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuPurchaser.Designer.cs">
+      <DependentUpon>MenuPurchaser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_cook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu_cook.Designer.cs">
+      <DependentUpon>Menu_cook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_vivsitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu_vivsitor.Designer.cs">
+      <DependentUpon>Menu_vivsitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewDish.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewDish.Designer.cs">
+      <DependentUpon>NewDish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderIngr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderIngr.Designer.cs">
+      <DependentUpon>OrderIngr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Regist.Designer.cs">
+      <DependentUpon>Regist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Review.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Review.Designer.cs">
+      <DependentUpon>Review.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowCook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowCook.Designer.cs">
+      <DependentUpon>ShowCook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowMenu.Designer.cs">
+      <DependentUpon>ShowMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowOrders.Designer.cs">
+      <DependentUpon>ShowOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowReview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowReview.Designer.cs">
+      <DependentUpon>ShowReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statistic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistic.Designer.cs">
+      <DependentUpon>Statistic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatusOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatusOrders.Designer.cs">
+      <DependentUpon>StatusOrders.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddDish.resx">
+      <DependentUpon>AddDish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEmployee.resx">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddIngredientOfDish.resx">
+      <DependentUpon>AddIngredientOfDish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddNewIngr.resx">
+      <DependentUpon>AddNewIngr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddOrder.resx">
+      <DependentUpon>AddOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckReviews.resx">
+      <DependentUpon>CheckReviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteDish.resx">
+      <DependentUpon>DeleteDish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteEmployee.resx">
+      <DependentUpon>DeleteEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteIng.resx">
+      <DependentUpon>DeleteIng.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Information.resx">
+      <DependentUpon>Information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFormN.resx">
+      <DependentUpon>MainFormN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuPurchaser.resx">
+      <DependentUpon>MenuPurchaser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu_cook.resx">
+      <DependentUpon>Menu_cook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu_vivsitor.resx">
+      <DependentUpon>Menu_vivsitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewDish.resx">
+      <DependentUpon>NewDish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderIngr.resx">
+      <DependentUpon>OrderIngr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Regist.resx">
+      <DependentUpon>Regist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Review.resx">
+      <DependentUpon>Review.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowCook.resx">
+      <DependentUpon>ShowCook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowMenu.resx">
+      <DependentUpon>ShowMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowOrders.resx">
+      <DependentUpon>ShowOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowReview.resx">
+      <DependentUpon>ShowReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statistic.resx">
+      <DependentUpon>Statistic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatusOrders.resx">
+      <DependentUpon>StatusOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

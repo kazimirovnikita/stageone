@@ -1,0 +1,41 @@
+SET ROLE test
+--------------Представления--------------
+SELECT * FROM view_first
+
+UPDATE view_first SET Surname = 'Лещюк' WHERE Name = 'Пётр'
+
+UPDATE services_statistic2 SET Price = Price + 100 WHERE Service = 'Замена масла'
+
+SELECT * FROM mechanics_statistic
+
+SELECT * FROM services_statistic
+
+--------------Mechanics--------------
+SELECT * FROM Mechanics
+
+UPDATE Mechanics SET Salary = Salary + 250
+	WHERE IdMechanic = 10
+
+INSERT INTO Mechanics (Name, Surname, Experience, Post, Salary) VALUES
+	('Дмитрий','Легков',7,'Стажер',2200)
+	
+	
+--------------Service--------------
+SELECT IdService, Service FROM Services
+SELECT Price FROM Services
+
+UPDATE Services SET Price = Price + 50
+	WHERE IdService = 15
+
+INSERT INTO Services (Service, Price) VALUES
+	('Уборка салона', 850)
+	
+	
+--------------Orders--------------
+SELECT * FROM Orders
+
+UPDATE Orders SET IdCar = 1
+	WHERE IdOrder = 1
+	
+INSERT INTO Orders (IdMechanic, IdStatusOrder, IdCar, DateOfIssue) VALUES
+	(2 , 1 , 3 , '25/03/2022')

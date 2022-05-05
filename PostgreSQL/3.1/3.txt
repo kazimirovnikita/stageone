@@ -1,0 +1,56 @@
+CREATE OR REPLACE PROCEDURE generate_proc() as
+	$$
+	from faker import Faker
+	fake = Faker()
+	for i in range(1000000):
+		n = fake.name()
+		ad = fake.address()
+		plpy.execute('insert into RetailCenter (Type, Adress) values (\'{}\', \'{}\')'.format(n, ad))
+	$$ language plpython3u;
+
+
+call generate_proc(); -- successfully in 4 min 13 secs
+
+CREATE OR REPLACE PROCEDURE generate_tr_event() as
+	$$
+	from faker import Faker
+	fake = Faker()
+	for i in range(1000000):
+		n = fake.name()
+		ad = fake.address()
+		plpy.execute('insert into TransportationEvent (Type, DelivaryRout) values (\'{}\', \'{}\')'.format(n, ad))
+	$$ language plpython3u;
+	
+call generate_tr_event(); -- successfully in 5 min 10 secs.
+
+CREATE OR REPLACE PROCEDURE generate_shipped_item() as
+	$$
+	from faker import Faker
+	import random
+	fake = Faker()
+	for i in range(10000000):
+		ad = fake.address()
+		d = fake.date_between(start_date='-2y', end_date='today')
+		plpy.execute('insert into ShippedItem (RetailCenterId, Weight, Demension, InsuranceAmt, Destination, FinalDelivaryDate) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(random.randint(1, 1000000), 
+			random.randint(0, 19), random.randint(0, 19), random.randint(0, 19), ad, d))
+	$$ language plpython3u;
+
+call generate_shipped_item(); --successfully in 48 min 20 secs.
+
+
+CREATE OR REPLACE PROCEDURE generate_item_tran() as
+	$$
+	import random
+	for i in range(1000000):
+		a = random.randint(1, 100000)
+		b = random.randint(315546, 10315546)
+		plpy.execute('insert into ItemTransportation (TransportationEventSeqNumber, ShippedItemItemNum) values (\'{}\', \'{}\')'.format(a, b))
+	$$ language plpython3u;
+	
+call generate_item_tran(); -- successfully in 4 min 13 secs
+	
+SELECT Min(ItemNum) FROM ShippedItem
+SELECT * FROM pg_language
+CREATE language plpython3u "Analytics"
+createlang plpython3u Analytics
+Select version()

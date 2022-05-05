@@ -1,0 +1,65 @@
+-----2.2
+CREATE  or replace function for_function() returns setof Mechanics as
+$$
+    DECLARE 
+		r Mechanics%rowtype;
+    BEGIN
+        for r in
+            select * from Mechanics where Name = 'Артем'
+        LOOP
+            return next r;
+        end loop;
+        return;
+    end;
+$$
+language plpgsql;
+
+select * from for_function(); 
+
+----------------------------------------------------------------------------
+
+create or replace function query_function(name_ text) returns setof int as
+$$
+    BEGIN
+        RETURN QUERY
+			select idMechanic from Mechanics where Name = name_;
+			
+        if not found then
+            raise exception 'Нет сотрудников с таким именем ';
+        end if;
+		
+        return;
+    end;
+ $$
+language plpgsql;
+
+select * from query_function('Никита');
+
+-----
+
+create function price_count() returns integer as
+$$
+	declare
+		pr integer;
+		curs cursor for select Price from Services;
+		all_price integer;
+	begin
+		if not exists((select * from Services)) then
+			raise exception 'Таблица пустая';
+		end if;
+		open curs;
+		fetch curs into pr;
+		all_price = 0;
+		while (found)
+		loop
+			all_price = all_price + pr;
+			fetch curs into pr;
+		end loop;
+		return all_price;
+	end;
+$$ language plpgsql;
+
+select * from price_count();
+
+
+create extension plPython3u

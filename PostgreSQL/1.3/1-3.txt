@@ -1,0 +1,62 @@
+-----Запросы-----
+
+-----Услгуи которые еще не производились-----
+SELECT Service, Price FROM Services
+	WHERE NOT EXISTS
+		(SELECT * FROM OrdersServices WHERE OrdersServices.IdServices = Services.IdService)
+			ORDER BY Price DESC
+
+-----Выручка-----
+SELECT Sum(Services.Price) AS Gain, 
+	Count(*) AS CountOfServices 
+    	FROM Services INNER JOIN OrdersServices
+			ON OrdersServices.IdServices=Services.IdService
+
+-----Сотрудники с наибольшим количество закзов-----
+WITH count_ord AS (SELECT COUNT(*), Mechanics.Surname FROM Mechanics
+				   INNER JOIN Orders ON Orders.IdMechanic=Mechanics.IdMechanic
+				  GROUP BY Mechanics.Surname)
+
+SELECT Count(*) AS NumberOfOrders, Mechanics.Name, Surname, Post
+	FROM Mechanics INNER JOIN Orders ON Orders.IdMechanic=Mechanics.IdMechanic
+GROUP BY Mechanics.Name, Mechanics.Surname, Mechanics.Post
+HAVING Count(Orders.IdOrder)=(SELECT MAX(count) FROM count_ord)
+
+
+-----Обновление цен-----
+UPDATE Services SET Price = Price * 1.2
+	WHERE Price <= 200
+
+-----Изменение сроков заказа из-за дефицита запчастей -----
+UPDATE Orders SET IdStatusOrder = 2, DateOfIssue = '30/04/2022'
+	WHERE IdStatusOrder = 1 AND IdCar IN 
+		(SELECT IdCar FROM Cars Where Brand = 'Hyunday' OR Brand = 'Lexus')
+		
+-----Премия для сотруддников успешно выполнивших более 1-го заказа-----
+UPDATE Mechanics SET Salary = Salary + 250
+ 	WHERE Experience > 8 AND IdMechanic IN (SELECT DISTINCT COUNT(*), Mechanics.IdMechanic FROM Mechanics
+												JOIN Orders ON Orders.IdMechanic = Mechanics.IdMechanic AND IdStatusOrder = 3
+										   			GROUP BY Mechanics.IdMechanic
+										   				HAVING Count(Orders.IdOrder)>1)
+
+
+-----Удаление ни разу не производившихся услуг-----
+DELETE FROM Service
+	WHERE NOT EXISTS
+		(SELECT * FROM OrdersServices WHERE OrdersServices.IdServices = Services.IdService)
+		
+-----Удаление выполненых заказов-----
+DELETE FROM Orders
+	WHERE IdStatusOrder = 3 AND IdCar = 
+		(SELECT IdCar From Cars WHERE ReleaseYear < '12/12/2015')
+	
+-----Удаление машин не находящихся в заказах-----
+DELETE FROM Cars WHERE IdCar = 
+	(SELECT IdCar FROM Orders WHERE Orders.IdCar = Cars.IdCar)
+
+-----Оконная функция----
+SELECT Name, Surname, Post, Salary, lag(Salary) OVER (ORDER BY Salary DESC) - Salary
+	AS DifferSalary FROM Mechanics
+		WHERE EXISTS
+			(SELECT IdMechanic FROM Orders WHERE Orders.IdMechanic = Mechanics.IdMechanic)
+				ORDER BY Salary DESC

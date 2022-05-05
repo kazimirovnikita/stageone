@@ -1,0 +1,55 @@
+--1
+--Потерянные изменения--
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+BEGIN;
+	UPDATE Services SET Price = Price + 50
+		WHERE IdService = 15;
+COMMIT;
+SELECT Price FROM Services WHERE IdService = 15
+
+--Грязное чтение--
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+BEGIN;
+	UPDATE Services SET Price = Price + 50
+		WHERE IdService = 15;
+	ROLLBACK;
+COMMIT;
+
+--2
+--Грязное чтение--
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN;
+	UPDATE Services SET Price = Price + 50
+		WHERE IdService = 15;
+	ROLLBACK;
+COMMIT;
+
+--Неповторяемое чтение--
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN;
+	SELECT Price FROM Services WHERE IdService = 15;
+	SELECT Price FROM Services WHERE IdService = 15;
+COMMIT;
+
+--3
+--Неповторяемое чтение--
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+BEGIN;
+	SELECT Price FROM Services WHERE IdService = 15;
+	SELECT Price FROM Services WHERE IdService = 15;
+COMMIT;
+
+--Фантомное чтение--
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+BEGIN;
+	SELECT Price FROM Services WHERE IdService = 15;
+	SELECT Price FROM Services WHERE IdService = 15;
+COMMIT;
+
+--4
+--Фантомное чтение--
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+BEGIN;
+	SELECT Count(IdMechanic) FROM Mechanics WHERE Name = 'Дмитрий';
+	SELECT Count(IdMechanic) FROM Mechanics WHERE Name = 'Дмитрий';
+COMMIT;

@@ -1,0 +1,44 @@
+CREATE TABLE StatusOrder (
+    IdStatusOrder serial PRIMARY KEY,
+	Status varchar(30)
+);
+
+CREATE TABLE Orders (
+    IdOrder serial PRIMARY KEY,
+    IdMechanic integer REFERENCES Mechanics (IdMechanic),
+	IdStatusorder integer REFERENCES StatusOrder (IdStatusOrder),
+	IdCar integer REFERENCES Cars (IdCar),
+	DateOfIssue date,
+);
+
+CREATE TABLE Cars (
+    IdCar serial PRIMARY KEY,
+	IdCarOwner int REFERENCES CarOwners (IdCarOwner),
+	Barnd varchar(30),
+	Number integer,
+	ReleaseYear Date
+);
+CREATE TABLE Mechanics (
+    IdMechanic serial PRIMARY KEY,
+	Name varchar(30),
+	Surname varchar(30),
+	Experience integer,
+	Post varchar (50)
+);
+
+CREATE TABLE CarOwners (
+    IdCarOwner serial PRIMARY KEY,
+	Name varchar(30),
+	Surname varchar(30)
+);
+
+CREATE TABLE OrdersServices (
+    Idorder integer REFERENCES Orders (IdOrder),
+	IdServices integer REFERENCES Services (IdService)
+);
+
+CREATE TABLE Services (
+	IdService serial PRIMARY KEY,
+	Service varchar(50),
+	Prive integer
+);

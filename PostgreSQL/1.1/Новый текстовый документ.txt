@@ -1,0 +1,45 @@
+CREATE TABLE StatusOrder (
+    IdStatusOrder serial PRIMARY KEY,
+	Status varchar(30)
+);
+
+CREATE TABLE Orders (
+    IdOrder serial PRIMARY KEY,
+    IdMechanic integer REFERENCES Mechanics (IdMechanic) ON DELETE CASCADE,
+	IdStatusorder integer REFERENCES StatusOrder (IdStatusOrder) ON DELETE CASCADE,
+	IdCar integer REFERENCES Cars (IdCar) ON DELETE CASCADE,
+	DateOfIssue date,
+	Bill integer
+);
+
+CREATE TABLE Cars (
+    IdCar serial PRIMARY KEY,
+	IdCarOwner int REFERENCES CarOwners (IdCarOwner) ON DELETE CASCADE,
+	Barnd varchar(30),
+	Number integer,
+	ReleaseYear Date
+);
+CREATE TABLE Mechanics (
+    IdMechanic serial PRIMARY KEY,
+	Name varchar(30),
+	Surname varchar(30),
+	Experience integer,
+	Post varchar (50)
+);
+
+CREATE TABLE CarOwners (
+    IdCarOwner serial PRIMARY KEY,
+	Name varchar(30),
+	Surname varchar(30)
+);
+
+CREATE TABLE OrdersServices (
+    Idorder integer REFERENCES Orders (IdOrder) ON DELETE CASCADE,
+	IdServices integer REFERENCES Services (IdService) ON DELETE CASCADE
+);
+
+CREATE TABLE Services (
+	IdService serial PRIMARY KEY,
+	Service varchar(50),
+	Prive integer
+);

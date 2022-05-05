@@ -1,0 +1,26 @@
+CREATE TABLE RetailCenter (
+    Id serial PRIMARY KEY,
+	Type varchar(255),
+	Address varchar(255)
+);
+
+CREATE TABLE ShippedItem (
+    ItemNum serial PRIMARY KEY,
+	RetailCenterId integer REFERENCES RetailCenter(Id) ON DELETE CASCADE,
+	Weight numeric(19,0),
+	Dimension numeric(19,0),
+	InsuranceAmt numeric(19,0),
+	Destination varchar(255),
+	FinalDelivaryDate date
+);
+
+CREATE TABLE TransportationEvent (
+    SeqNumber serial PRIMARY KEY,
+	Type varchar(255),
+	DelivaryRout varchar(255)
+);
+
+CREATE TABLE ItemTransportation (
+    TransportationEventSeqNumber integer REFERENCES TransportationEvent(SeqNumber) ON DELETE CASCADE,
+	ShippedItemItemNum integer REFERENCES ShippedItem(ItemNum) ON DELETE CASCADE
+);
